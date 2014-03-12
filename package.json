@@ -1,0 +1,24 @@
+{
+  "name": "your-lds-wedding-planner",
+  "version": "0.1.0",
+  "author": "Tyler Peterson <stronglytyped@gmail.com>",
+  "description": "A website for the book ‘Your LDS Wedding Planner.'",
+  "contributors": [
+    {
+      "name": "Tyler Peterson",
+      "email": "stronglytyped@gmail.com"
+    }
+  ],
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tylerpeterson/your-lds-wedding-planner.git"
+  },
+  "dependencies": {
+    "express": "~3.4.8"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=0.10.26"
+  }
+}

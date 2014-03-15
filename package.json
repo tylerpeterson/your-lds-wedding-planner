@@ -15,7 +15,9 @@
     "url": "https://github.com/tylerpeterson/your-lds-wedding-planner.git"
   },
   "dependencies": {
-    "express": "~3.4.8"
+    "express": "~3.4.8",
+    "ejs": "~0.8.5",
+    "q": "~1.0.1"
   },
   "devDependencies": {},
   "engines": {

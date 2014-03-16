@@ -8,6 +8,8 @@ var express = require('express'),
     fs = require('fs'),
     readFile = Q.denodeify(fs.readFile);
 
+app.use(express.static(__dirname + '/public'));
+
 app.get('/', function (req, res) {
   readFile('ejs-views/index.ejs', 'utf-8').then(function (template) {
     res.send(ejs.render(template, {}));

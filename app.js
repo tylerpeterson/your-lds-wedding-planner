@@ -6,17 +6,37 @@ var express = require('express'),
     ejs = require('ejs'),
     Q = require('q'),
     fs = require('fs'),
-    readFile = Q.denodeify(fs.readFile);
+    renderFile = Q.denodeify(ejs.renderFile);
 
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', function (req, res) {
-  readFile('ejs-views/index.ejs', 'utf-8').then(function (template) {
-    res.send(ejs.render(template, {}));
+function renderView(path, options) {
+  var htmlDfd = Q.defer();
+
+  renderFile(path, options).then(function (viewHtml) {
+    renderFile('ejs-layouts/standard.ejs', {body: viewHtml}).then(function (pageHtml) {
+      htmlDfd.resolve(pageHtml);
+    }, htmlDfd.reject);
+  }, htmlDfd.reject);
+
+  return htmlDfd.promise;
+}
+
+function renderContentPage(res, path) {
+  renderView(path, {}).then(function (pageHtml) {
+    res.send(pageHtml);
   }, function (err) {
-    console.log('err getting template', err);
+    console.log('err rendering view', err);
     res.send(500, 'Sorry! Something broke.');
   });
+}
+
+app.get('/about-ann', function (req, res) {
+  renderContentPage(res, 'ejs-views/about_ann.ejs');
+});
+
+app.get('/', function (req, res) {
+  renderContentPage(res, 'ejs-views/index.ejs');
 });
 
 var server = app.listen(port, function () {

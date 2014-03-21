@@ -35,6 +35,10 @@ app.get('/about-ann', function (req, res) {
   renderContentPage(res, 'ejs-views/about_ann.ejs');
 });
 
+app.get('/about-the-book', function (req, res) {
+  renderContentPage(res, 'ejs-views/about_the_book.ejs');
+});
+
 app.get('/', function (req, res) {
   renderContentPage(res, 'ejs-views/index.ejs');
 });

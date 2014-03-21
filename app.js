@@ -14,7 +14,7 @@ function renderView(path, options) {
   var htmlDfd = Q.defer();
 
   renderFile(path, options).then(function (viewHtml) {
-    renderFile('ejs-layouts/standard.ejs', {body: viewHtml}).then(function (pageHtml) {
+    renderFile('ejs-layouts/standard.ejs', {body: viewHtml, locals: options.locals}).then(function (pageHtml) {
       htmlDfd.resolve(pageHtml);
     }, htmlDfd.reject);
   }, htmlDfd.reject);
@@ -22,8 +22,10 @@ function renderView(path, options) {
   return htmlDfd.promise;
 }
 
-function renderContentPage(res, path) {
-  renderView(path, {}).then(function (pageHtml) {
+function renderContentPage(res, path, locals) {
+  options = {locals: locals};
+  console.log('options', options);
+  renderView(path, options).then(function (pageHtml) {
     res.send(pageHtml);
   }, function (err) {
     console.log('err rendering view', err);
@@ -32,15 +34,15 @@ function renderContentPage(res, path) {
 }
 
 app.get('/about-ann', function (req, res) {
-  renderContentPage(res, 'ejs-views/about_ann.ejs');
+  renderContentPage(res, 'ejs-views/about_ann.ejs', {active: 'author'});
 });
 
 app.get('/about-the-book', function (req, res) {
-  renderContentPage(res, 'ejs-views/about_the_book.ejs');
+  renderContentPage(res, 'ejs-views/about_the_book.ejs', {active: 'book'});
 });
 
 app.get('/', function (req, res) {
-  renderContentPage(res, 'ejs-views/index.ejs');
+  renderContentPage(res, 'ejs-views/index.ejs', {active: 'home'});
 });
 
 var server = app.listen(port, function () {

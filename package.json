@@ -17,7 +17,7 @@
   "dependencies": {
     "flexgrid": "git://github.com/tylerpeterson/flexgrid.git",
     "express": "~3.4.8",
-    "ejs": "~0.8.5",
+    "ejs": "~2.5.5",
     "q": "~1.0.1",
     "ecstatic": "~0.4.13"
   },
